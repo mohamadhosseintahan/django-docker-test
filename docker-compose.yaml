@@ -26,7 +26,6 @@ services:
 
     networks:
       - shared
-      - internal
 
   redis:
     container_name: "redis"
@@ -34,7 +33,6 @@ services:
     command: redis-server --save 60 1 --loglevel warning
     networks:
       - shared
-      - internal
 
   app:
     container_name: app
@@ -54,7 +52,6 @@ services:
       - db
     networks:
       - shared
-      - internal
 
     restart: always
 
@@ -64,12 +61,9 @@ services:
       context: ./
     working_dir: /opt/A
     networks:
-      - internal
       - shared
     command: celery -A A worker -l info -P solo -E
 
 
 networks:
   shared:
-    name: shared
-  internal:
